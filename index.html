@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>张明的学术主页 | 机器学习 · 自然语言处理</title>
+    <!-- Font Awesome 5 图标库 (免费版本) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', system-ui, -apple-system, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 35px -8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            padding: 2.5rem 2rem;
+        }
+
+        /* 页眉区域 */
+        .profile-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 2rem;
+        }
+
+        .avatar-placeholder {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #2563eb, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            font-weight: 300;
+            color: white;
+            box-shadow: 0 15px 25px -8px rgba(37,99,235,0.3);
+        }
+
+        .profile-title h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #0f172a;
+            margin-bottom: 0.3rem;
+        }
+
+        .profile-title .subhead {
+            font-size: 1.2rem;
+            color: #475569;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .institution {
+            background: #eef2ff;
+            color: #1e40af;
+            padding: 0.25rem 1rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 0.2rem;
+        }
+
+        .contact-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 0.8rem;
+        }
+
+        .contact-bar a {
+            color: #334155;
+            font-size: 1.1rem;
+            transition: color 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-bar a:hover {
+            color: #2563eb;
+        }
+
+        /* 章节通用样式 */
+        .section {
+            margin: 2.5rem 0;
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #0f172a;
+            border-left: 6px solid #2563eb;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .research-interests {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .interest-tag {
+            background: #f1f5f9;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #1e293b;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s;
+        }
+
+        .interest-tag:hover {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        /* 论文列表 */
+        .publication-list {
+            list-style: none;
+        }
+
+        .publication-item {
+            margin-bottom: 1.8rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+
+        .publication-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .pub-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .pub-title a {
+            color: #1e293b;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .pub-title a:hover {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+
+        .pub-authors {
+            color: #475569;
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .pub-venue {
+            font-size: 0.9rem;
+            color: #64748b;
+            display: inline-block;
+            background: #f1f5f9;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            margin-top: 0.3rem;
+        }
+
+        .pub-links {
+            margin-top: 0.5rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .pub-links a {
+            color: #2563eb;
+            font-size: 0.9rem;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .pub-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* 联系方式卡片 (用于底部) */
+        .contact-section {
+            background: #f1f4f9;
+            border-radius: 18px;
+            padding: 1.8rem 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.05rem;
+        }
+
+        .contact-item i {
+            width: 1.8rem;
+            color: #2563eb;
+            font-size: 1.4rem;
+        }
+
+        .contact-item a, .contact-item span {
+            color: #1e293b;
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+
+        /* 页脚 */
+        .footer-note {
+            margin-top: 2rem;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 1.5rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.5rem;
+            }
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            .contact-bar {
+                justify-content: center;
+            }
+            .profile-title .subhead {
+                justify-content: center;
+            }
+            .contact-grid {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .avatar-placeholder {
+                width: 120px;
+                height: 120px;
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部信息：姓名 + 头像占位符 + 快速联系方式 -->
+        <header class="profile-header">
+            <div class="avatar-placeholder">
+                <span>张</span>
+            </div>
+            <div class="profile-title">
+                <h1>张明 <span style="font-weight:400; color:#475569; font-size:1.6rem;">Ming Zhang</span></h1>
+                <div class="subhead">
+                    <span>副教授 · 博士生导师</span>
+                    <span class="institution"><i class="fas fa-university" style="margin-right:6px;"></i>清华大学 计算机科学与技术系</span>
+                </div>
+                <!-- 快捷图标链接 -->
+                <div class="contact-bar">
+                    <a href="mailto:ming.zhang@tsinghua.edu.cn"><i class="fas fa-envelope"></i> Email</a>
+                    <a href="https://github.com/mingzhang" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://scholar.google.com/citations?user=xxxxxxxx" target="_blank"><i class="fas fa-graduation-cap"></i> 谷歌学术</a>
+                    <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- 研究方向 -->
+        <section class="section">
+            <h2><i class="fas fa-microscope" style="margin-right:10px; color:#2563eb;"></i> 研究方向</h2>
+            <div class="research-interests">
+                <span class="interest-tag">机器学习</span>
+                <span class="interest-tag">自然语言处理</span>
+                <span class="interest-tag">大语言模型</span>
+                <span class="interest-tag">知识图谱</span>
+                <span class="interest-tag">多模态学习</span>
+                <span class="interest-tag">可解释AI</span>
+            </div>
+            <p style="margin-top:1.5rem; color: #334155; background: #f8fafc; padding: 1rem 1.5rem; border-radius: 14px; border-left: 4px solid #2563eb;">
+                📌 研究兴趣聚焦于让机器更好地理解人类语言与知识，尤其关注大规模预训练模型的高效性、可信度与推理能力。近期工作包括轻量化微调、多模态指令跟随以及知识增强的生成模型。
+            </p>
+        </section>
+
+        <!-- 代表性论文 (带图标和链接) -->
+        <section class="section">
+            <h2><i class="fas fa-file-alt" style="margin-right:10px; color:#2563eb;"></i> 代表性论文</h2>
+            <ul class="publication-list">
+                <li class="publication-item">
+                    <div class="pub-title">
+                        <a href="#" target="_blank">🚀 高效参数微调的大语言模型知识编辑方法</a>
+                    </div>
+                    <div class="pub-authors"><strong>张明</strong>, 李华, 王芳, 陈建</div>
+                    <span class="pub-venue">ACL 2024 ( Findings )</span>
+                    <div class="pub-links">
+                        <a href="#"><i class="fas fa-file-pdf"></i> PDF</a>
+                        <a href="#"><i class="fas fa-code"></i> 代码</a>
+                        <a href="#"><i class="fas fa-link"></i> DOI</a>
+                    </div>
+                </li>
+                <li class="publication-item">
+                    <div class="pub-title">
+                        <a href="#" target="_blank">🧠 知识图谱增强的多跳推理大模型</a>
+                    </div>
+                    <div class="pub-authors">陈静, <strong>张明</strong>, 刘阳, William Smith</div>
+                    <span class="pub-venue">EMNLP 2023 (Oral)</span>
+                    <div class="pub-links">
+                        <a href="#"><i class="fas fa-file-pdf"></i> PDF</a>
+                        <a href="#"><i class="fas fa-code"></i> 代码</a>
+                    </div>
+                </li>
+                <li class="publication-item">
+                    <div class="pub-title">
+                        <a href="#" target="_blank">🌐 跨语言语义统一表示：基于对比学习的多语言预训练</a>
+                    </div>
+                    <div class="pub-authors"><strong>张明</strong>, 王芳, 赵雷</div>
+                    <span class="pub-venue">ICLR 2023</span>
+                    <div class="pub-links">
+                        <a href="#"><i class="fas fa-file-pdf"></i> PDF</a>
+                        <a href="#"><i class="fas fa-database"></i> 数据集</a>
+                    </div>
+                </li>
+                <li class="publication-item">
+                    <div class="pub-title">
+                        <a href="#" target="_blank">⚡ 轻量化Transformer结构搜索与蒸馏</a>
+                    </div>
+                    <div class="pub-authors">刘阳, 周杰, <strong>张明</strong></div>
+                    <span class="pub-venue">NeurIPS 2022</span>
+                    <div class="pub-links">
+                        <a href="#"><i class="fas fa-file-pdf"></i> PDF</a>
+                        <a href="#"><i class="fab fa-github"></i> 代码</a>
+                    </div>
+                </li>
+            </ul>
+            <div style="margin-top: 1rem; text-align: right;">
+                <a href="#" style="color:#2563eb; text-decoration: none; font-weight: 500;">查看全部论文 <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </section>
+
+        <!-- 联系方式与社交信息 (详细卡片) -->
+        <section class="contact-section">
+            <h2 style="font-size:1.6rem; margin-bottom:1rem; border-left: none; padding-left:0; display: flex; align-items: center; gap:10px;">
+                <i class="fas fa-address-card" style="color:#2563eb;"></i> 联系我
+            </h2>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:ming.zhang@tsinghua.edu.cn">ming.zhang@tsinghua.edu.cn</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-github"></i>
+                    <a href="https://github.com/mingzhang" target="_blank">github.com/mingzhang</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    <a href="#" target="_blank">谷歌学术主页</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-twitter"></i>
+                    <a href="#" target="_blank">@ming_zhang</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>北京市海淀区清华大学 FIT楼 3-208</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页脚 (可添加更新日期或版权) -->
+        <div class="footer-note">
+            <i class="far fa-calendar-alt"></i> 最后更新：2025年3月  ·  维护：张明课题组  ·  使用 GitHub Pages 发布
+        </div>
+    </div>
+    <!-- 可选：增加一个指向GitHub仓库的隐藏彩蛋（便于访问源码） -->
+    <div style="text-align: center; margin-top: 1rem; font-size: 0.8rem; color: #94a3b8;">
+        <i class="fab fa-github"></i> 本页源码托管在 <a href="#" style="color: #64748b; text-decoration: none;">GitHub</a> · 欢迎 Star
+    </div>
+</body>
+</html>
