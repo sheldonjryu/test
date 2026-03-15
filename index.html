@@ -1,429 +1,624 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>张明的学术主页 | 机器学习 · 自然语言处理</title>
-    <!-- Font Awesome 5 图标库 (免费版本) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>俞佳儒 · 学术主页</title>
+    <!-- Font Awesome 6 (免费图标库) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', system-ui, -apple-system, sans-serif;
-            background: #f8fafc;
-            color: #1e293b;
-            line-height: 1.6;
-            padding: 2rem 1rem;
+            background-color: #f5f7fa;
+            color: #1e2b3a;
+            line-height: 1.5;
+            padding: 2rem 1.5rem;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1300px;
             margin: 0 auto;
-            background: white;
+            background-color: white;
             border-radius: 24px;
-            box-shadow: 0 20px 35px -8px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px -10px rgba(0,20,30,0.15);
             overflow: hidden;
-            padding: 2.5rem 2rem;
+            padding: 2rem 2rem 1rem 2rem;
         }
 
-        /* 页眉区域 */
-        .profile-header {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
+        /* 网格布局：左侧边栏 + 主内容 */
+        .grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
             gap: 2rem;
-            margin-bottom: 2.5rem;
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 2rem;
         }
 
-        .avatar-placeholder {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            background: linear-gradient(145deg, #2563eb, #7c3aed);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            font-weight: 300;
-            color: white;
-            box-shadow: 0 15px 25px -8px rgba(37,99,235,0.3);
-        }
-
-        .profile-title h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: #0f172a;
-            margin-bottom: 0.3rem;
-        }
-
-        .profile-title .subhead {
-            font-size: 1.2rem;
-            color: #475569;
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .institution {
-            background: #eef2ff;
-            color: #1e40af;
-            padding: 0.25rem 1rem;
-            border-radius: 50px;
-            font-weight: 500;
-            font-size: 0.9rem;
-            display: inline-block;
-            margin-top: 0.2rem;
-        }
-
-        .contact-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            margin-top: 0.8rem;
-        }
-
-        .contact-bar a {
-            color: #334155;
-            font-size: 1.1rem;
-            transition: color 0.2s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .contact-bar a:hover {
-            color: #2563eb;
-        }
-
-        /* 章节通用样式 */
-        .section {
-            margin: 2.5rem 0;
-        }
-
-        .section h2 {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: #0f172a;
-            border-left: 6px solid #2563eb;
-            padding-left: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .research-interests {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin-top: 0.5rem;
-        }
-
-        .interest-tag {
-            background: #f1f5f9;
-            padding: 0.4rem 1.2rem;
-            border-radius: 40px;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #1e293b;
-            border: 1px solid #e2e8f0;
-            transition: all 0.2s;
-        }
-
-        .interest-tag:hover {
-            background: #2563eb;
-            color: white;
-            border-color: #2563eb;
-            transform: translateY(-2px);
-        }
-
-        /* 论文列表 */
-        .publication-list {
-            list-style: none;
-        }
-
-        .publication-item {
-            margin-bottom: 1.8rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px dashed #e2e8f0;
-        }
-
-        .publication-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .pub-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-        }
-
-        .pub-title a {
-            color: #1e293b;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .pub-title a:hover {
-            color: #2563eb;
-            text-decoration: underline;
-        }
-
-        .pub-authors {
-            color: #475569;
-            font-size: 0.95rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .pub-venue {
-            font-size: 0.9rem;
-            color: #64748b;
-            display: inline-block;
-            background: #f1f5f9;
-            padding: 0.2rem 0.8rem;
+        /* ========== 左侧样式 ========== */
+        .sidebar {
+            background-color: #f9fcff;
             border-radius: 20px;
-            margin-top: 0.3rem;
+            padding: 1.8rem 1.5rem;
+            border: 1px solid #e6edf4;
+            height: fit-content;
         }
 
-        .pub-links {
-            margin-top: 0.5rem;
-            display: flex;
-            gap: 1rem;
+        .name-large {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0b2a41;
+            margin-bottom: 0.25rem;
+            line-height: 1.2;
         }
 
-        .pub-links a {
-            color: #2563eb;
-            font-size: 0.9rem;
-            text-decoration: none;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
+        .subname {
+            font-size: 1rem;
+            color: #4b5f73;
+            border-bottom: 1px dashed #cbd5e1;
+            padding-bottom: 1rem;
+            margin-bottom: 1.2rem;
         }
 
-        .pub-links a:hover {
-            text-decoration: underline;
-        }
-
-        /* 联系方式卡片 (用于底部) */
-        .contact-section {
-            background: #f1f4f9;
-            border-radius: 18px;
-            padding: 1.8rem 2rem;
-            margin-top: 2rem;
-        }
-
-        .contact-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: space-between;
-            align-items: center;
+        .subname i {
+            margin-right: 4px;
+            color: #3d7ea6;
         }
 
         .contact-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1.05rem;
+            gap: 12px;
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+            word-break: break-word;
         }
 
         .contact-item i {
-            width: 1.8rem;
-            color: #2563eb;
-            font-size: 1.4rem;
+            width: 20px;
+            color: #2c6496;
+            font-size: 1rem;
+            text-align: center;
         }
 
-        .contact-item a, .contact-item span {
-            color: #1e293b;
+        .contact-item a {
+            color: #1e2b3a;
             text-decoration: none;
+            border-bottom: 1px dotted transparent;
+            transition: 0.2s;
         }
 
         .contact-item a:hover {
-            color: #2563eb;
-            text-decoration: underline;
+            border-bottom: 1px dotted #2c6496;
+            color: #0b2a41;
         }
 
-        /* 页脚 */
-        .footer-note {
-            margin-top: 2rem;
-            text-align: center;
-            color: #94a3b8;
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            color: #0b2a41;
+            margin: 1.8rem 0 1rem 0;
+            border-left: 5px solid #2c6496;
+            padding-left: 10px;
+        }
+
+        .interest-tag {
+            background-color: white;
+            border: 1px solid #d4e0e9;
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            margin: 0.25rem 0.25rem;
+            display: inline-block;
+            color: #1e405e;
+        }
+
+        .skill-badge {
+            background-color: #eaf1f9;
+            color: #1e405e;
+            padding: 0.2rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin: 0.2rem 0.2rem;
+        }
+
+        .honor-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .honor-list li {
             font-size: 0.9rem;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 1.5rem;
+            margin-bottom: 0.6rem;
+            padding-left: 22px;
+            position: relative;
+        }
+        .honor-list li:before {
+            content: "🏆";
+            position: absolute;
+            left: 0;
+            color: #d4a11e;
+            font-size: 0.8rem;
         }
 
-        /* 响应式设计 */
-        @media (max-width: 640px) {
+        /* ========== 右侧样式 ========== */
+        .main {
+            padding-right: 0.5rem;
+        }
+
+        .main-section {
+            margin-bottom: 2.2rem;
+        }
+
+        .main-section h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #0b2a41;
+            border-bottom: 2px solid #cbddee;
+            padding-bottom: 6px;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .main-section h2 i {
+            color: #2c6496;
+            font-size: 1.3rem;
+        }
+
+        .entry {
+            margin-bottom: 1.5rem;
+        }
+
+        .entry-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            font-weight: 600;
+            color: #0f344d;
+            margin-bottom: 0.25rem;
+        }
+
+        .entry-title {
+            font-size: 1.05rem;
+        }
+
+        .entry-date {
+            font-size: 0.9rem;
+            color: #526e83;
+            font-weight: 400;
+        }
+
+        .entry-sub {
+            font-weight: 500;
+            color: #2c3e54;
+            margin-bottom: 0.15rem;
+        }
+
+        .entry-detail {
+            font-size: 0.95rem;
+            color: #2d4055;
+            margin-left: 0;
+            padding-left: 0;
+        }
+
+        .entry-detail ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .entry-detail li {
+            margin-bottom: 0.4rem;
+            position: relative;
+            padding-left: 20px;
+        }
+        .entry-detail li:before {
+            content: "•";
+            color: #2c6496;
+            font-weight: bold;
+            position: absolute;
+            left: 4px;
+        }
+
+        .pub-item {
+            font-size: 0.95rem;
+            margin-bottom: 0.9rem;
+            line-height: 1.5;
+            padding-left: 20px;
+            position: relative;
+        }
+        .pub-item:before {
+            content: "📄";
+            position: absolute;
+            left: -2px;
+            color: #1e4d73;
+            font-size: 0.85rem;
+        }
+
+        .pub-item em {
+            color: #1e4d73;
+            font-style: italic;
+        }
+
+        .underline {
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            text-decoration-color: #7fa3c2;
+        }
+
+        .conf-item {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            padding-left: 20px;
+            position: relative;
+        }
+        .conf-item:before {
+            content: "🗣️";
+            position: absolute;
+            left: -2px;
+            font-size: 0.85rem;
+        }
+
+        .referee-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        .referee-card {
+            background-color: #f6fafd;
+            border-radius: 12px;
+            padding: 1rem 1rem;
+            border-left: 4px solid #2c6496;
+        }
+
+        .referee-name {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .referee-affil {
+            font-size: 0.9rem;
+            color: #2e506e;
+            margin: 0.1rem 0 0.4rem;
+        }
+
+        .referee-contact {
+            font-size: 0.85rem;
+        }
+        .referee-contact i {
+            width: 18px;
+            color: #3a6e9f;
+            margin-right: 5px;
+        }
+
+        .footnote {
+            margin-top: 2.5rem;
+            font-size: 0.8rem;
+            color: #6f8a9f;
+            text-align: right;
+            border-top: 1px solid #dde5ec;
+            padding-top: 0.8rem;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 850px) {
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .sidebar {
+                order: 1;
+            }
+            .main {
+                order: 2;
+            }
+            body {
+                padding: 1rem;
+            }
             .container {
-                padding: 1.5rem;
+                padding: 1.5rem 1rem;
             }
-            .profile-header {
-                flex-direction: column;
-                text-align: center;
-                gap: 1rem;
-            }
-            .contact-bar {
-                justify-content: center;
-            }
-            .profile-title .subhead {
-                justify-content: center;
-            }
-            .contact-grid {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
-            .avatar-placeholder {
-                width: 120px;
-                height: 120px;
-                font-size: 3rem;
-            }
+        }
+
+        /* 头像占位风格 */
+        .avatar-placeholder {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(145deg, #d2e3f0, #b1cde0);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            font-weight: 500;
+            color: #1e3b57;
+            margin: 0 auto 1rem auto;
+            border: 3px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .jp-name {
+            font-size: 1rem;
+            color: #2e577a;
+            margin-top: -0.3rem;
+            margin-bottom: 0.5rem;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- 头部信息：姓名 + 头像占位符 + 快速联系方式 -->
-        <header class="profile-header">
-            <div class="avatar-placeholder">
-                <span>张</span>
-            </div>
-            <div class="profile-title">
-                <h1>张明 <span style="font-weight:400; color:#475569; font-size:1.6rem;">Ming Zhang</span></h1>
-                <div class="subhead">
-                    <span>副教授 · 博士生导师</span>
-                    <span class="institution"><i class="fas fa-university" style="margin-right:6px;"></i>清华大学 计算机科学与技术系</span>
-                </div>
-                <!-- 快捷图标链接 -->
-                <div class="contact-bar">
-                    <a href="mailto:ming.zhang@tsinghua.edu.cn"><i class="fas fa-envelope"></i> Email</a>
-                    <a href="https://github.com/mingzhang" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                    <a href="https://scholar.google.com/citations?user=xxxxxxxx" target="_blank"><i class="fas fa-graduation-cap"></i> 谷歌学术</a>
-                    <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                </div>
-            </div>
-        </header>
+<div class="container">
+    <!-- 网格布局开始 -->
+    <div class="grid">
+        <!-- ========== 左侧栏 ========= -->
+        <aside class="sidebar">
+            <div class="avatar-placeholder">俞</div>
+            <div class="name-large">俞佳儒</div>
+            <div class="jp-name">Jiaru YU · ユ カジュ</div>
+            <div class="subname"><i class="fas fa-graduation-cap"></i> 京都大学博士生 · 日本政治外交</div>
 
-        <!-- 研究方向 -->
-        <section class="section">
-            <h2><i class="fas fa-microscope" style="margin-right:10px; color:#2563eb;"></i> 研究方向</h2>
-            <div class="research-interests">
-                <span class="interest-tag">机器学习</span>
-                <span class="interest-tag">自然语言处理</span>
-                <span class="interest-tag">大语言模型</span>
-                <span class="interest-tag">知识图谱</span>
-                <span class="interest-tag">多模态学习</span>
-                <span class="interest-tag">可解释AI</span>
+            <!-- 联系方式 -->
+            <div class="contact-item">
+                <i class="fas fa-phone-alt"></i>
+                <span>+86-15001881800 (中) ｜ +81(0)80-4459-9755 (日)</span>
             </div>
-            <p style="margin-top:1.5rem; color: #334155; background: #f8fafc; padding: 1rem 1.5rem; border-radius: 14px; border-left: 4px solid #2563eb;">
-                📌 研究兴趣聚焦于让机器更好地理解人类语言与知识，尤其关注大规模预训练模型的高效性、可信度与推理能力。近期工作包括轻量化微调、多模态指令跟随以及知识增强的生成模型。
-            </p>
-        </section>
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:yu.jiaru.78t@st.kyoto-u.ac.jp">yu.jiaru.78t@st.kyoto-u.ac.jp</a>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-envelope-open-text"></i>
+                <a href="mailto:yujiaru21@outlook.com">yujiaru21@outlook.com</a>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>京都·上海</span>
+            </div>
 
-        <!-- 代表性论文 (带图标和链接) -->
-        <section class="section">
-            <h2><i class="fas fa-file-alt" style="margin-right:10px; color:#2563eb;"></i> 代表性论文</h2>
-            <ul class="publication-list">
-                <li class="publication-item">
-                    <div class="pub-title">
-                        <a href="#" target="_blank">🚀 高效参数微调的大语言模型知识编辑方法</a>
-                    </div>
-                    <div class="pub-authors"><strong>张明</strong>, 李华, 王芳, 陈建</div>
-                    <span class="pub-venue">ACL 2024 ( Findings )</span>
-                    <div class="pub-links">
-                        <a href="#"><i class="fas fa-file-pdf"></i> PDF</a>
-                        <a href="#"><i class="fas fa-code"></i> 代码</a>
-                        <a href="#"><i class="fas fa-link"></i> DOI</a>
-                    </div>
-                </li>
-                <li class="publication-item">
-                    <div class="pub-title">
-                        <a href="#" target="_blank">🧠 知识图谱增强的多跳推理大模型</a>
-                    </div>
-                    <div class="pub-authors">陈静, <strong>张明</strong>, 刘阳, William Smith</div>
-                    <span class="pub-venue">EMNLP 2023 (Oral)</span>
-                    <div class="pub-links">
-                        <a href="#"><i class="fas fa-file-pdf"></i> PDF</a>
-                        <a href="#"><i class="fas fa-code"></i> 代码</a>
-                    </div>
-                </li>
-                <li class="publication-item">
-                    <div class="pub-title">
-                        <a href="#" target="_blank">🌐 跨语言语义统一表示：基于对比学习的多语言预训练</a>
-                    </div>
-                    <div class="pub-authors"><strong>张明</strong>, 王芳, 赵雷</div>
-                    <span class="pub-venue">ICLR 2023</span>
-                    <div class="pub-links">
-                        <a href="#"><i class="fas fa-file-pdf"></i> PDF</a>
-                        <a href="#"><i class="fas fa-database"></i> 数据集</a>
-                    </div>
-                </li>
-                <li class="publication-item">
-                    <div class="pub-title">
-                        <a href="#" target="_blank">⚡ 轻量化Transformer结构搜索与蒸馏</a>
-                    </div>
-                    <div class="pub-authors">刘阳, 周杰, <strong>张明</strong></div>
-                    <span class="pub-venue">NeurIPS 2022</span>
-                    <div class="pub-links">
-                        <a href="#"><i class="fas fa-file-pdf"></i> PDF</a>
-                        <a href="#"><i class="fab fa-github"></i> 代码</a>
-                    </div>
-                </li>
+            <!-- 研究兴趣（标签） -->
+            <div class="section-title"><i class="fas fa-compass" style="margin-right: 6px;"></i> 研究领域</div>
+            <div>
+                <span class="interest-tag">日本政治外交(史)</span>
+                <span class="interest-tag">东亚历史认识</span>
+                <span class="interest-tag">东亚国际政治思想</span>
+                <span class="interest-tag">国际秩序/地位</span>
+            </div>
+
+            <!-- 语言能力 -->
+            <div class="section-title"><i class="fas fa-language"></i> 语言能力</div>
+            <div>
+                <span class="skill-badge">汉语 (母语)</span>
+                <span class="skill-badge">英语 C1 (IELTS 7.5)</span>
+                <span class="skill-badge">日语 N1</span>
+                <span class="skill-badge">韩语 中级</span>
+                <span class="skill-badge">上海话/崇明话</span>
+            </div>
+
+            <!-- 技能 -->
+            <div class="section-title"><i class="fas fa-laptop"></i> 技能特长</div>
+            <div>
+                <span class="skill-badge">Microsoft Office</span>
+                <span class="skill-badge">Stata (基础)</span>
+                <span class="skill-badge">R (基础)</span>
+                <span class="skill-badge">Python (基础)</span>
+                <span class="skill-badge">秀米</span>
+                <span class="skill-badge">中国舞12级</span>
+                <span class="skill-badge">啦啦操四级</span>
+            </div>
+
+            <!-- 荣誉精选 (浓缩) -->
+            <div class="section-title"><i class="fas fa-award"></i> 荣誉与奖项</div>
+            <ul class="honor-list">
+                <li>2025-2028 京都大学奖励研究员</li>
+                <li>2022-2023 硕士生国家奖学金</li>
+                <li>2024/2021 上海市优秀毕业生(本/硕)</li>
+                <li>三菱商事国际交流奖学金</li>
+                <li>复旦大学优秀学生 (2018)</li>
+                <li>全国啦啦操四级 / 合唱银奖</li>
+                <li>新生杯/院系杯足球季军</li>
+                <li>更多荣誉见右侧</li>
             </ul>
-            <div style="margin-top: 1rem; text-align: right;">
-                <a href="#" style="color:#2563eb; text-decoration: none; font-weight: 500;">查看全部论文 <i class="fas fa-arrow-right"></i></a>
-            </div>
-        </section>
 
-        <!-- 联系方式与社交信息 (详细卡片) -->
-        <section class="contact-section">
-            <h2 style="font-size:1.6rem; margin-bottom:1rem; border-left: none; padding-left:0; display: flex; align-items: center; gap:10px;">
-                <i class="fas fa-address-card" style="color:#2563eb;"></i> 联系我
-            </h2>
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <a href="mailto:ming.zhang@tsinghua.edu.cn">ming.zhang@tsinghua.edu.cn</a>
-                </div>
-                <div class="contact-item">
-                    <i class="fab fa-github"></i>
-                    <a href="https://github.com/mingzhang" target="_blank">github.com/mingzhang</a>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-graduation-cap"></i>
-                    <a href="#" target="_blank">谷歌学术主页</a>
-                </div>
-                <div class="contact-item">
-                    <i class="fab fa-twitter"></i>
-                    <a href="#" target="_blank">@ming_zhang</a>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>北京市海淀区清华大学 FIT楼 3-208</span>
-                </div>
+            <!-- 兴趣爱好简洁 -->
+            <div class="section-title"><i class="fas fa-heart"></i> 兴趣爱好</div>
+            <div>
+                <span class="skill-badge">K-POP (NCT)</span>
+                <span class="skill-badge">足球</span>
+                <span class="skill-badge">合唱</span>
             </div>
-        </section>
+        </aside>
 
-        <!-- 页脚 (可添加更新日期或版权) -->
-        <div class="footer-note">
-            <i class="far fa-calendar-alt"></i> 最后更新：2025年3月  ·  维护：张明课题组  ·  使用 GitHub Pages 发布
-        </div>
-    </div>
-    <!-- 可选：增加一个指向GitHub仓库的隐藏彩蛋（便于访问源码） -->
-    <div style="text-align: center; margin-top: 1rem; font-size: 0.8rem; color: #94a3b8;">
-        <i class="fab fa-github"></i> 本页源码托管在 <a href="#" style="color: #64748b; text-decoration: none;">GitHub</a> · 欢迎 Star
-    </div>
+        <!-- ========== 右侧主内容 ========= -->
+        <main class="main">
+            <!-- 简短个人简介 -->
+            <div style="background: #eaf3fb; padding: 1.2rem; border-radius: 16px; margin-bottom: 2rem; font-size: 0.98rem; color: #103247;">
+                <i class="fas fa-quote-left" style="color: #2c6496; margin-right: 8px;"></i> 
+                俞佳儒，1999年4月生，上海崇明人。京都大学法学研究科博士生（法政理论专攻）。毕业于复旦大学国际关系与公共事务学院，法学学士（国际政治）、法学硕士（外交学）。研究方向为日本政治外交史、东亚历史认识问题和东亚国际政治思想。在《国际政治研究》《现代国际关系》《東北アジア研究》等期刊发表论文多篇，主持完成课题2项。
+            </div>
+
+            <!-- 教育经历 -->
+            <section class="main-section">
+                <h2><i class="fas fa-university"></i> 教育经历</h2>
+                
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">京都大学 大学院法学研究科 · 博士后期课程 (法政理论专攻)</span>
+                        <span class="entry-date">2025.04 – 至今</span>
+                    </div>
+                    <div class="entry-detail">日本·京都 / 研究方向：日本政治外交史 / 大学院教育支援机构奖励研究员 (2025-2028)</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">京都大学 大学院法学研究科 · 研究生 (research student)</span>
+                        <span class="entry-date">2024.10 – 2025.03</span>
+                    </div>
+                    <div class="entry-detail">日本·京都</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">复旦大学 国际关系与公共事务学院 · 法学硕士 (外交学)</span>
+                        <span class="entry-date">2021.09 – 2024.06</span>
+                    </div>
+                    <div class="entry-detail">中国·上海 / GPA 3.95/4 (专业课3.97) / 导师：王广涛<br>硕士论文：《崛起国的地位策略选择——基于近代日本的考察》 (校外盲审双优秀，答辩优秀)</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">成蹊大学 国际教育中心 · 交换留学</span>
+                        <span class="entry-date">2022.09 – 2023.08</span>
+                    </div>
+                    <div class="entry-detail">日本·东京 / 近代日本政治外交史、近代东亚国际关系史、日本政治思想史等</div>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">复旦大学 国际关系与公共事务学院 · 法学学士 (国际政治)</span>
+                        <span class="entry-date">2017.09 – 2021.06</span>
+                    </div>
+                    <div class="entry-detail">中国·上海 / GPA 3.74/4 (排名9/205) / 导师：王广涛<br>学士论文：《两种民族主义、近代化竞赛与日韩历史认识问题》</div>
+                </div>
+            </section>
+
+            <!-- 科研经历（课题、助理） -->
+            <section class="main-section">
+                <h2><i class="fas fa-flask"></i> 科研经历</h2>
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">主持：上海日本研究交流中心委托课题 “日本人权外交的演变与走向研究” (SJSC-2022-02)</span>
+                        <span class="entry-date">2022 (已结项)</span>
+                    </div>
+                    <div class="entry-header" style="margin-top: 10px;">
+                        <span class="entry-title">主持：复旦大学FDUROP曦源项目 “中美战略竞争背景下日本对华政策的新动向研究” (20455)</span>
+                        <span class="entry-date">2020-2021 (已结项)</span>
+                    </div>
+                    <div class="entry-header" style="margin-top: 10px;">
+                        <span class="entry-title">参与：教育部课题“日韩历史和解的动因、影响与对策研究” (2023-N06)</span>
+                        <span class="entry-date">2023-2024</span>
+                    </div>
+                    <div class="entry-header" style="margin-top: 10px;">
+                        <span class="entry-title">科研助理：斯坦福大学-中国传媒大学“中美大学生社会态度调查” (指导：邵梓捷)</span>
+                        <span class="entry-date">2019-2023</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 主要成果（论文） -->
+            <section class="main-section">
+                <h2><i class="fas fa-file-alt"></i> 主要学术论文</h2>
+                <div class="pub-item"><span class="underline">俞佳儒</span>：《地位动机、认知差异与地位承认的政治：以中日甲午战争前的地位政治为例》，《日本研究集林》2025年第1辑，第22-51页。</div>
+                <div class="pub-item">王広涛·<span class="underline">兪佳儒</span>·程兆語「中国における対日政策の言説空間：国際関係·日本研究機関誌を手掛かりに（2016−2023）」『東北アジア研究』第29巻、2025年、67−85頁。</div>
+                <div class="pub-item"><span class="underline">俞佳儒</span>、王广涛：《全球国际关系学视野下的西田几多郎：理论困境及其警示》，《复旦国际关系评论》第32辑，2023年，第141-169页。【CSSCI】</div>
+                <div class="pub-item">王广涛、<span class="underline">俞佳儒</span>：《日美防卫技术合作演变的逻辑》，《国际安全研究》2023年第6期，第29-50页。【CSSCI】</div>
+                <div class="pub-item">王广涛、<span class="underline">俞佳儒</span>：《民族主义、近代化竞赛与日韩历史认识问题》，《国际政治研究》2023年第3期，第31-55页。【CSSCI】</div>
+                <div class="pub-item">王广涛、<span class="underline">俞佳儒</span>：《日本人权外交的强化及其困境》，《现代国际关系》2023年第5期，第40-53页。【CSSCI】</div>
+                <div class="pub-item">王广涛、<span class="underline">俞佳儒</span>：《身份困境与对冲的扩展：中美战略竞争下日本对华政策的新动向》，《边界与海洋研究》2021年第4期，第73-90页。</div>
+            </section>
+
+            <!-- 其他成果、翻译、工作论文 -->
+            <section class="main-section">
+                <h2><i class="fas fa-pen-fancy"></i> 其他成果及当前工作</h2>
+                <div class="entry">
+                    <div class="entry-sub">📰 杂志/评论/翻译</div>
+                    <ul style="margin-bottom: 0.8rem;">
+                        <li>田中和久著、<span class="underline">俞佳儒</span>译：《日本幻想复制昭和时代的荣光，太天真》，《环球时报》2023.8.10。</li>
+                        <li>王广涛、<span class="underline">俞佳儒</span>：《拟派现职防卫省文官驻台 日本小动作包藏祸心》，国际在线，2022.6.13。</li>
+                        <li><span class="underline">俞佳儒</span>：《日本财阀的兴与衰》，《百科知识》2022年第1A期。</li>
+                    </ul>
+                    <div class="entry-sub">📝 工作论文</div>
+                    <ul>
+                        <li>《空间定位与身份目标：对战后日本的人权外交的一种解释》</li>
+                        <li>《中日关系史叙述中的“老朋友”隐喻》</li>
+                    </ul>
+                    <div class="entry-sub" style="margin-top: 10px;">📚 翻译编著</div>
+                    <ul><li>王广涛、<span class="underline">俞佳儒</span>编译：《东亚同文书院经济调查资料选译·人力资源卷》，社会科学文献出版社（拟）。</li></ul>
+                </div>
+            </section>
+
+            <!-- 学术会议 -->
+            <section class="main-section">
+                <h2><i class="fas fa-users"></i> 学术会议与活动</h2>
+                <div class="conf-item"><span class="underline">俞佳儒</span>、王广涛：《全球国际关系学视野下的西田几多郎》，复旦国际关系论坛，2022.6 (线上)。</div>
+                <div class="conf-item">第9届中日关系上海研讨会，上海日本研究交流中心，2022.12。</div>
+                <div class="conf-item">第4届次世代日本研究者工作坊 (日本国际交流基金)，发表「日本ODAにおける人権への配慮」(日语)，2022.12-2023.2。</div>
+                <div class="conf-item">第3届Nansen East-West Dialogue Academy，挪威利勒哈默，2019.8。</div>
+                <div class="conf-item">复旦·立命馆·庆熙大学中日韩学生和平对话会 (上海)，发表 “The Role of NGOs in East Asia”，2019.8。</div>
+                <div class="conf-item">第12届亚洲未来政治人论坛 (AFPLA)，韩国首尔，panel历史教育，2018.8。</div>
+            </section>
+
+            <!-- 工作经历 简短 -->
+            <section class="main-section">
+                <h2><i class="fas fa-briefcase"></i> 工作经历</h2>
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">华东师范大学出版社 · 主题出版部实习编辑</span>
+                        <span class="entry-date">2021.03-2021.06</span>
+                    </div>
+                    <div class="entry-detail">责任编辑署名第二 (多本数学/德育教学指导意见)</div>
+                </div>
+                <div class="entry" style="margin-top: 10px;">
+                    <div class="entry-header">
+                        <span class="entry-title">爱德曼国际公关（上海） · 公关实习生 (PR Intern)</span>
+                        <span class="entry-date">2020.09-2020.11</span>
+                    </div>
+                    <div class="entry-detail">行业洞察、social listening、新闻稿撰写翻译</div>
+                </div>
+            </section>
+
+            <!-- 推荐人 -->
+            <section class="main-section">
+                <h2><i class="fas fa-address-card"></i> 推荐人</h2>
+                <div class="referee-grid">
+                    <div class="referee-card">
+                        <div class="referee-name">王广涛 副研究员</div>
+                        <div class="referee-affil">复旦大学日本研究中心</div>
+                        <div class="referee-contact"><i class="fas fa-envelope"></i> wangguangtao@fudan.edu.cn<br><i class="fas fa-phone-alt"></i> +86-13262699758</div>
+                    </div>
+                    <div class="referee-card">
+                        <div class="referee-name">陈拯 教授</div>
+                        <div class="referee-affil">复旦大学国际关系与公共事务学院</div>
+                        <div class="referee-contact"><i class="fas fa-envelope"></i> chenzheng@fudan.edu.cn<br><i class="fas fa-phone-alt"></i> +86-13919680621</div>
+                    </div>
+                    <div class="referee-card">
+                        <div class="referee-name">贺平 研究员</div>
+                        <div class="referee-affil">复旦大学日本研究中心</div>
+                        <div class="referee-contact"><i class="fas fa-envelope"></i> heping@fudan.edu.cn<br><i class="fas fa-phone-alt"></i> +86-021-65642577</div>
+                    </div>
+                    <div class="referee-card">
+                        <div class="referee-name">澤井勇海 副教授</div>
+                        <div class="referee-affil">东京科学大学 環境·社会理工学院</div>
+                        <div class="referee-contact"><i class="fas fa-envelope"></i> i.sawai@ila.titech.ac.jp<br><i class="fas fa-phone-alt"></i> +81(0)70-8846-4380</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 荣誉列表补充 (左侧已精简，此处可快速浏览) -->
+            <section class="main-section">
+                <h2><i class="fas fa-medal"></i> 荣誉一览</h2>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
+                    <span class="skill-badge">国家奖学金(硕士)</span>
+                    <span class="skill-badge">上海市优秀毕业生(本/硕)</span>
+                    <span class="skill-badge">三菱商事奖学金</span>
+                    <span class="skill-badge">学业一等奖(多次)</span>
+                    <span class="skill-badge">复旦大学优秀学生</span>
+                    <span class="skill-badge">科研奖励三等奖</span>
+                    <span class="skill-badge">国际合唱节银奖</span>
+                    <span class="skill-badge">无伴奏合唱银奖</span>
+                    <span class="skill-badge">足球赛季军</span>
+                </div>
+            </section>
+
+            <div class="footnote">
+                <i class="far fa-calendar-alt"></i> 最后更新：2026年3月 · 设计用于GitHub学术主页
+            </div>
+        </main>
+    </div> <!-- end grid -->
+</div> <!-- end container -->
 </body>
 </html>
