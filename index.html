@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>俞佳儒 · 学术主页 (NCT绿版)</title>
-    <!-- Font Awesome 6 (免费图标库) -->
+    <title>俞佳儒 · 学术主页 (NCT绿 · 可切换)</title>
+    <!-- Font Awesome 6 (图标库) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -25,26 +25,84 @@
             max-width: 1300px;
             margin: 0 auto;
             background-color: white;
-            border-radius: 24px;
+            border-radius: 28px;
             box-shadow: 0 20px 40px -10px rgba(40, 70, 30, 0.15);
             overflow: hidden;
-            padding: 2rem 2rem 1rem 2rem;
+            padding: 0 2rem 1rem 2rem; /* 上内边距由导航控制 */
         }
 
-        /* 网格布局：左侧边栏 + 主内容 */
+        /* ----- 顶部导航 (固定不动) ----- */
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            align-items: center;
+            padding: 1.2rem 0 0.8rem 0;
+            border-bottom: 2px solid #c0e0b5;
+            margin-bottom: 2rem;
+            background-color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .nav-item {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #2b532b;
+            padding: 0.4rem 0.8rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            background-color: transparent;
+        }
+        .nav-item i {
+            margin-right: 6px;
+            color: #4f9a4f;
+        }
+        .nav-item:hover {
+            background-color: #e2f2dc;
+            color: #1b4c1b;
+        }
+        .nav-item.active {
+            background-color: #7fb07f;
+            color: white;
+        }
+        .nav-item.active i {
+            color: white;
+        }
+
+        /* 网格布局：左侧边栏 + 右侧内容 */
         .grid {
             display: grid;
             grid-template-columns: 280px 1fr;
             gap: 2rem;
+            margin-top: 0.5rem;
         }
 
-        /* ========== 左侧样式 (NCT绿点缀) ========== */
+        /* ========== 左侧样式 (固定不动, NCT绿点缀) ========= */
         .sidebar {
             background-color: #f9fef7;
-            border-radius: 20px;
+            border-radius: 24px;
             padding: 1.8rem 1.5rem;
             border: 1px solid #dcedcf;
             height: fit-content;
+        }
+
+        .avatar-placeholder {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(145deg, #c8e3c8, #a8d0a8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            font-weight: 500;
+            color: #1d3d1d;
+            margin: 0 auto 1rem auto;
+            border: 3px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
         .name-large {
@@ -53,26 +111,22 @@
             color: #1d3d1d;
             margin-bottom: 0.25rem;
             line-height: 1.2;
+            text-align: center;
         }
 
-        .subname {
+        .jp-name {
             font-size: 1rem;
-            color: #3d5e3d;
-            border-bottom: 1px dashed #b8d9b0;
-            padding-bottom: 1rem;
-            margin-bottom: 1.2rem;
-        }
-
-        .subname i {
-            margin-right: 4px;
-            color: #5f9e5f;
+            color: #3d6b3d;
+            margin-top: -0.2rem;
+            margin-bottom: 1rem;
+            text-align: center;
         }
 
         .contact-item {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.7rem;
             font-size: 0.9rem;
             word-break: break-word;
         }
@@ -96,12 +150,12 @@
             color: #1d3d1d;
         }
 
-        .section-title {
+        .section-title-left {
             font-size: 1.1rem;
             font-weight: 600;
             letter-spacing: 0.3px;
             color: #1d3d1d;
-            margin: 1.8rem 0 1rem 0;
+            margin: 1.6rem 0 1rem 0;
             border-left: 5px solid #7fb07f;
             padding-left: 10px;
         }
@@ -127,29 +181,24 @@
             margin: 0.2rem 0.2rem;
         }
 
-        .honor-list {
-            list-style: none;
-            padding-left: 0;
-            max-height: 400px;
-            overflow-y: auto;
-            font-size: 0.88rem;
-        }
-        .honor-list li {
-            margin-bottom: 0.6rem;
-            padding-left: 22px;
-            position: relative;
-        }
-        .honor-list li:before {
-            content: "🌱";
-            position: absolute;
-            left: 0;
-            color: #5f9e5f;
-            font-size: 0.9rem;
+        hr {
+            border: 0.5px solid #d0e5d0;
+            margin: 1rem 0;
         }
 
-        /* ========== 右侧样式 (主色 NCT绿) ========== */
-        .main {
-            padding-right: 0.5rem;
+        /* ========== 右侧内容区域 ========= */
+        .right-panel {
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+        }
+
+        .page {
+            display: none;  /* 默认隐藏 */
+        }
+
+        .page.active-page {
+            display: block;
         }
 
         .main-section {
@@ -196,13 +245,6 @@
             font-weight: 400;
         }
 
-        .entry-sub {
-            font-weight: 500;
-            color: #2c542c;
-            margin-bottom: 0.15rem;
-            margin-top: 0.8rem;
-        }
-
         .entry-detail {
             font-size: 0.95rem;
             color: #2d402d;
@@ -242,9 +284,18 @@
             font-size: 0.85rem;
         }
 
-        .pub-item em {
-            color: #3d7e3d;
-            font-style: italic;
+        .other-item {
+            font-size: 0.95rem;
+            margin-bottom: 0.7rem;
+            padding-left: 22px;
+            position: relative;
+        }
+        .other-item:before {
+            content: "▪️";
+            position: absolute;
+            left: 0;
+            color: #4f9a4f;
+            font-size: 0.9rem;
         }
 
         .underline {
@@ -253,27 +304,29 @@
             text-decoration-color: #8fc58f;
         }
 
-        .avatar-placeholder {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(145deg, #c8e3c8, #a8d0a8);
-            border-radius: 50%;
+        .badge-container {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.8rem;
-            font-weight: 500;
-            color: #1d3d1d;
-            margin: 0 auto 1rem auto;
-            border: 3px solid white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            flex-wrap: wrap;
+            gap: 0.4rem 0.8rem;
+            margin-top: 0.5rem;
         }
 
-        .jp-name {
-            font-size: 1rem;
-            color: #3d6b3d;
-            margin-top: -0.3rem;
-            margin-bottom: 0.5rem;
+        .honor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+            gap: 0.5rem 1rem;
+        }
+
+        .honor-item {
+            font-size: 0.92rem;
+            padding-left: 20px;
+            position: relative;
+        }
+        .honor-item:before {
+            content: "🌱";
+            position: absolute;
+            left: 0;
+            color: #4f9a4f;
         }
 
         .footnote {
@@ -285,38 +338,38 @@
             padding-top: 0.8rem;
         }
 
-        /* 移动端适配 */
-        @media (max-width: 850px) {
+        @media (max-width: 750px) {
             .grid {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
             }
-            .sidebar {
-                order: 1;
+            nav {
+                gap: 0.8rem;
             }
-            .main {
-                order: 2;
-            }
-            body {
-                padding: 1rem;
-            }
-            .container {
-                padding: 1.5rem 1rem;
+            .nav-item {
+                font-size: 1rem;
+                padding: 0.3rem 0.6rem;
             }
         }
     </style>
 </head>
 <body>
 <div class="container">
+    <!-- 顶部固定菜单 -->
+    <nav>
+        <div class="nav-item active" data-page="home"><i class="fas fa-home"></i> 首页</div>
+        <div class="nav-item" data-page="academic"><i class="fas fa-file-alt"></i> 学术成果</div>
+        <div class="nav-item" data-page="research"><i class="fas fa-flask"></i> 科研经历</div>
+        <div class="nav-item" data-page="other"><i class="fas fa-ellipsis-h"></i> 其他</div>
+    </nav>
+
+    <!-- 网格布局：左侧固定 + 右侧切换 -->
     <div class="grid">
-        <!-- ========== 左侧栏 (NCT绿) ========= -->
+        <!-- 左侧栏（固定内容） -->
         <aside class="sidebar">
             <div class="avatar-placeholder">俞</div>
             <div class="name-large">俞佳儒</div>
             <div class="jp-name">Jiaru YU · ユ カジュ</div>
-            <div class="subname"><i class="fas fa-graduation-cap"></i> 京都大学博士生 · 日本政治外交</div>
 
-            <!-- 联系方式 -->
             <div class="contact-item">
                 <i class="fas fa-phone-alt"></i>
                 <span>+86-15001881800 (中) ｜ +81(0)80-4459-9755 (日)</span>
@@ -334,8 +387,7 @@
                 <span>京都 · 上海</span>
             </div>
 
-            <!-- 研究领域（标签） -->
-            <div class="section-title"><i class="fas fa-compass" style="margin-right: 6px;"></i> 研究領域</div>
+            <div class="section-title-left"><i class="fas fa-compass"></i> 研究领域</div>
             <div>
                 <span class="interest-tag">日本政治外交(史)</span>
                 <span class="interest-tag">东亚历史认识</span>
@@ -343,191 +395,264 @@
                 <span class="interest-tag">国际秩序/地位</span>
             </div>
 
-            <!-- 语言能力 -->
-            <div class="section-title"><i class="fas fa-language"></i> 語言能力</div>
+            <div class="section-title-left"><i class="fas fa-language"></i> 语言能力</div>
             <div>
-                <span class="skill-badge">汉语 (母语·上海话/崇明话)</span>
+                <span class="skill-badge">汉语 (母语·上海/崇明)</span>
                 <span class="skill-badge">英语 C1 (IELTS 7.5)</span>
                 <span class="skill-badge">日语 N1</span>
                 <span class="skill-badge">韩语 中级</span>
             </div>
 
-            <!-- 技能特长 -->
-            <div class="section-title"><i class="fas fa-laptop"></i> 技能特長</div>
+            <div class="section-title-left"><i class="fas fa-laptop"></i> 软件技能</div>
             <div>
-                <span class="skill-badge">Microsoft Office</span>
+                <span class="skill-badge">MS Office</span>
                 <span class="skill-badge">Stata (基础)</span>
                 <span class="skill-badge">R (基础)</span>
                 <span class="skill-badge">Python (基础)</span>
                 <span class="skill-badge">秀米</span>
-                <span class="skill-badge">中国舞12级</span>
-                <span class="skill-badge">啦啦操四级</span>
             </div>
 
-            <!-- 荣誉与奖项 (全部列出，滚动) -->
-            <div class="section-title"><i class="fas fa-award"></i> 榮譽與獎項</div>
-            <ul class="honor-list">
-                <li><strong>奖学金</strong>：2025-2028 京都大学奖励研究员</li>
-                <li>2023-2024 硕士生学年学业奖学金 一等奖</li>
-                <li>2023-2024 复旦大学国务学院科研奖励 三等奖</li>
-                <li>2022-2023 硕士生国家奖学金</li>
-                <li>2022-2023 硕士生学年学业奖学金 一等奖</li>
-                <li>2022-2023 三菱商事国际交流奖学金</li>
-                <li>2021-2022 硕士生学年学业奖学金 二等奖</li>
-                <li>2021 复旦大学优秀学生奖学金(毕业生) 一等奖</li>
-                <li>2019-2020 复旦大学优秀学生奖学金 二等奖</li>
-                <li>2018-2019 复旦大学优秀学生奖学金 二等奖</li>
-                <li>2017-2018 复旦大学优秀学生奖学金 二等奖</li>
-                <li><strong>荣誉称号</strong>：2024 上海市优秀毕业生(研究生)</li>
-                <li>2021 上海市优秀毕业生(本科)</li>
-                <li>2018 复旦大学优秀学生</li>
-                <li><strong>其他荣誉</strong>：2019 第四届“合唱之心”国际合唱节 银奖</li>
-                <li>2018 上海市第六届无伴奏合唱比赛 银奖</li>
-                <li>2018 复旦大学院系杯足球赛 季军</li>
-                <li>2017 复旦大学新生杯足球赛 季军</li>
-                <li>中国舞(北舞12级) · 啦啦操花球四级</li>
-            </ul>
-
-            <!-- 兴趣爱好 -->
-            <div class="section-title"><i class="fas fa-heart"></i> 興趣愛好</div>
-            <div>
-                <span class="skill-badge">K-POP (NCT, NCT 127, DOYOUNG)</span>
-                <span class="skill-badge">足球</span>
-                <span class="skill-badge">合唱</span>
+            <hr>
+            <div style="font-size:0.85rem; color:#3d6b3d; text-align:center;">
+                <i class="fas fa-seedling"></i> 右侧切换查看详细
             </div>
         </aside>
 
-        <!-- ========== 右侧主内容 (无当前工作/活动/推荐人) ========= -->
-        <main class="main">
-            <!-- 简短个人简介 -->
-            <div style="background: #ebf7e8; padding: 1.2rem; border-radius: 16px; margin-bottom: 2rem; font-size: 0.98rem; color: #1d3d1d;">
-                <i class="fas fa-quote-left" style="color: #4f9a4f; margin-right: 8px;"></i> 
-                俞佳儒，1999年4月生，上海崇明人。京都大学法学研究科博士生（法政理论专攻）。毕业于复旦大学国际关系与公共事务学院，法学学士（国际政治）、法学硕士（外交学）。研究方向为日本政治外交史、东亚历史认识问题和东亚国际政治思想。在《国际政治研究》《现代国际关系》《東北アジア研究》等期刊发表论文多篇，主持完成课题2项。
+        <!-- 右侧内容 (四个页面) -->
+        <div class="right-panel">
+            <!-- 首页：个人简介 + 教育经历 -->
+            <div id="home" class="page active-page">
+                <section class="main-section">
+                    <h2><i class="fas fa-user-graduate"></i> 个人简介</h2>
+                    <div style="background: #ebf7e8; padding: 1.2rem; border-radius: 16px; font-size:0.98rem;">
+                        俞佳儒，1999年4月生，上海崇明人。京都大学法学研究科博士生（法政理论专攻）。毕业于复旦大学国际关系与公共事务学院，法学学士（国际政治）、法学硕士（外交学）。研究方向为日本政治外交史、东亚历史认识问题和东亚国际政治思想。在《国际政治研究》《现代国际关系》《東北アジア研究》等期刊发表论文多篇，主持完成课题2项。
+                    </div>
+                </section>
+
+                <section class="main-section">
+                    <h2><i class="fas fa-university"></i> 教育经历</h2>
+                    
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">京都大学 大学院法学研究科 · 博士后期课程 (法政理论专攻)</span>
+                            <span class="entry-date">2025.04 – 至今</span>
+                        </div>
+                        <div class="entry-detail">日本·京都 / 日本政治外交史 / 大学院教育支援机构奖励研究员 (2025-2028)</div>
+                    </div>
+
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">京都大学 大学院法学研究科 · 研究生 (research student)</span>
+                            <span class="entry-date">2024.10 – 2025.03</span>
+                        </div>
+                        <div class="entry-detail">日本·京都</div>
+                    </div>
+
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">复旦大学 国际关系与公共事务学院 · 法学硕士 (外交学)</span>
+                            <span class="entry-date">2021.09 – 2024.06</span>
+                        </div>
+                        <div class="entry-detail">中国·上海 / GPA 3.95/4 (专业课3.97) / 导师：王广涛<br>硕士论文：《崛起国的地位策略选择——基于近代日本的考察》 (校外盲审双优秀，答辩优秀)</div>
+                    </div>
+
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">成蹊大学 国际教育中心 · 交换留学</span>
+                            <span class="entry-date">2022.09 – 2023.08</span>
+                        </div>
+                        <div class="entry-detail">日本·东京 / 近代日本政治外交史、近代东亚国际关系史、日本政治思想史等</div>
+                    </div>
+
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">复旦大学 国际关系与公共事务学院 · 法学学士 (国际政治)</span>
+                            <span class="entry-date">2017.09 – 2021.06</span>
+                        </div>
+                        <div class="entry-detail">中国·上海 / GPA 3.74/4 (排名9/205) / 导师：王广涛<br>学士论文：《两种民族主义、近代化竞赛与日韩历史认识问题》</div>
+                    </div>
+                </section>
             </div>
 
-            <!-- 教育经历 -->
-            <section class="main-section">
-                <h2><i class="fas fa-university"></i> 教育经历</h2>
-                
-                <div class="entry">
-                    <div class="entry-header">
-                        <span class="entry-title">京都大学 大学院法学研究科 · 博士后期课程 (法政理论专攻)</span>
-                        <span class="entry-date">2025.04 – 至今</span>
-                    </div>
-                    <div class="entry-detail">日本·京都 / 研究方向：日本政治外交史 / 大学院教育支援机构奖励研究员 (2025-2028)</div>
-                </div>
+            <!-- 学术成果页：论文+其他评论/编译 -->
+            <div id="academic" class="page">
+                <section class="main-section">
+                    <h2><i class="fas fa-file-alt"></i> 学术论文</h2>
+                    <div class="pub-item"><span class="underline">俞佳儒</span>：《地位动机、认知差异与地位承认的政治：以中日甲午战争前的地位政治为例》，《日本研究集林》2025年第1辑，第22-51页。</div>
+                    <div class="pub-item">王広涛·<span class="underline">兪佳儒</span>·程兆語「中国における対日政策の言説空間：国際関係·日本研究機関誌を手掛かりに（2016−2023）」『東北アジア研究』第29巻、2025年、67−85頁。</div>
+                    <div class="pub-item"><span class="underline">俞佳儒</span>、王广涛：《全球国际关系学视野下的西田几多郎：理论困境及其警示》，《复旦国际关系评论》第32辑，2023年，第141-169页。【CSSCI】</div>
+                    <div class="pub-item">王广涛、<span class="underline">俞佳儒</span>：《日美防卫技术合作演变的逻辑》，《国际安全研究》2023年第6期，第29-50页。【CSSCI】</div>
+                    <div class="pub-item">王广涛、<span class="underline">俞佳儒</span>：《民族主义、近代化竞赛与日韩历史认识问题》，《国际政治研究》2023年第3期，第31-55页。【CSSCI】</div>
+                    <div class="pub-item">王广涛、<span class="underline">俞佳儒</span>：《日本人权外交的强化及其困境》，《现代国际关系》2023年第5期，第40-53页。【CSSCI】</div>
+                    <div class="pub-item">王广涛、<span class="underline">俞佳儒</span>：《身份困境与对冲的扩展：中美战略竞争下日本对华政策的新动向》，《边界与海洋研究》2021年第4期，第73-90页。</div>
+                </section>
 
-                <div class="entry">
-                    <div class="entry-header">
-                        <span class="entry-title">京都大学 大学院法学研究科 · 研究生 (research student)</span>
-                        <span class="entry-date">2024.10 – 2025.03</span>
-                    </div>
-                    <div class="entry-detail">日本·京都</div>
-                </div>
+                <section class="main-section">
+                    <h2><i class="fas fa-newspaper"></i> 评论·翻译·其他</h2>
+                    <div class="other-item">田中和久著、<span class="underline">俞佳儒</span>译：《日本幻想复制昭和时代的荣光，太天真》，《环球时报》2023年8月10日，第14版。</div>
+                    <div class="other-item">王广涛、<span class="underline">俞佳儒</span>：《拟派现职防卫省文官驻台 日本小动作包藏祸心》，中央广播电视总台国际在线，2022年6月13日。</div>
+                    <div class="other-item"><span class="underline">俞佳儒</span>：《日本财阀的兴与衰》，《百科知识》2022年第1A期，第62-64页。</div>
+                    <div class="other-item">王广涛、<span class="underline">俞佳儒</span>编译：《东亚同文书院经济调查资料选译·人力资源卷》，社会科学文献出版社（拟）。</div>
+                </section>
+            </div>
 
-                <div class="entry">
-                    <div class="entry-header">
-                        <span class="entry-title">复旦大学 国际关系与公共事务学院 · 法学硕士 (外交学)</span>
-                        <span class="entry-date">2021.09 – 2024.06</span>
+            <!-- 科研经历页：课题、科研助理 -->
+            <div id="research" class="page">
+                <section class="main-section">
+                    <h2><i class="fas fa-tasks"></i> 主持课题</h2>
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">上海日本研究交流中心委托课题 “日本人权外交的演变与走向研究” (SJSC-2022-02)</span>
+                            <span class="entry-date">2022 (结项)</span>
+                        </div>
+                        <div class="entry-header" style="margin-top:0.8rem;">
+                            <span class="entry-title">复旦大学FDUROP曦源项目 “中美战略竞争背景下日本对华政策的新动向研究” (20455)</span>
+                            <span class="entry-date">2020-2021 (结项)</span>
+                        </div>
                     </div>
-                    <div class="entry-detail">中国·上海 / GPA 3.95/4 (专业课3.97) / 导师：王广涛<br>硕士论文：《崛起国的地位策略选择——基于近代日本的考察》 (校外盲审双优秀，答辩优秀)</div>
-                </div>
 
-                <div class="entry">
-                    <div class="entry-header">
-                        <span class="entry-title">成蹊大学 国际教育中心 · 交换留学</span>
-                        <span class="entry-date">2022.09 – 2023.08</span>
+                    <h2 style="margin-top:1.8rem;"><i class="fas fa-users"></i> 参与课题</h2>
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">教育部高校国别与区域研究2023年课题 “日韩历史和解的动因、影响与对策研究” (2023-N06)</span>
+                            <span class="entry-date">2023-2024</span>
+                        </div>
+                        <div class="entry-header">
+                            <span class="entry-title">国家信息技术安全研究中心开放课题</span>
+                            <span class="entry-date">2024</span>
+                        </div>
                     </div>
-                    <div class="entry-detail">日本·东京 / 近代日本政治外交史、近代东亚国际关系史、日本政治思想史等</div>
-                </div>
 
-                <div class="entry">
-                    <div class="entry-header">
-                        <span class="entry-title">复旦大学 国际关系与公共事务学院 · 法学学士 (国际政治)</span>
-                        <span class="entry-date">2017.09 – 2021.06</span>
+                    <h2 style="margin-top:1.8rem;"><i class="fas fa-user-tie"></i> 科研助理</h2>
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">斯坦福大学-中国传媒大学“中美大学生社会态度调查” (指导：邵梓捷)</span>
+                            <span class="entry-date">2019-2023</span>
+                        </div>
                     </div>
-                    <div class="entry-detail">中国·上海 / GPA 3.74/4 (排名9/205) / 导师：王广涛<br>学士论文：《两种民族主义、近代化竞赛与日韩历史认识问题》</div>
-                </div>
-            </section>
+                </section>
+            </div>
 
-            <!-- 科研经历（课题、科研助理） -->
-            <section class="main-section">
-                <h2><i class="fas fa-flask"></i> 科研经历</h2>
-                
-                <div class="entry">
-                    <div class="entry-header">
-                        <span class="entry-title">主持：上海日本研究交流中心委托课题 “日本人权外交的演变与走向研究” (SJSC-2022-02)</span>
-                        <span class="entry-date">2022 (已结项)</span>
-                    </div>
-                    <div class="entry-header" style="margin-top: 10px;">
-                        <span class="entry-title">主持：复旦大学FDUROP曦源项目 “中美战略竞争背景下日本对华政策的新动向研究” (20455)</span>
-                        <span class="entry-date">2020-2021 (已结项)</span>
-                    </div>
-                    <div class="entry-header" style="margin-top: 10px;">
-                        <span class="entry-title">参与：教育部课题“日韩历史和解的动因、影响与对策研究” (2023-N06)</span>
-                        <span class="entry-date">2023-2024</span>
-                    </div>
-                    <div class="entry-header" style="margin-top: 10px;">
-                        <span class="entry-title">参与：国家信息技术安全研究中心开放课题</span>
-                        <span class="entry-date">2024</span>
-                    </div>
-                    <div class="entry-header" style="margin-top: 10px;">
-                        <span class="entry-title">科研助理：斯坦福大学-中国传媒大学“中美大学生社会态度调查” (指导：邵梓捷)</span>
-                        <span class="entry-date">2019-2023</span>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 主要成果（学术论文） -->
-            <section class="main-section">
-                <h2><i class="fas fa-file-alt"></i> 主要学术论文</h2>
-                
-                <div class="pub-item"><span class="underline">俞佳儒</span>：《地位动机、认知差异与地位承认的政治：以中日甲午战争前的地位政治为例》，《日本研究集林》2025年第1辑，第22-51页。</div>
-                <div class="pub-item">王広涛·<span class="underline">兪佳儒</span>·程兆語「中国における対日政策の言説空間：国際関係·日本研究機関誌を手掛かりに（2016−2023）」『東北アジア研究』第29巻、2025年、67−85頁。</div>
-                <div class="pub-item"><span class="underline">俞佳儒</span>、王广涛：《全球国际关系学视野下的西田几多郎：理论困境及其警示》，《复旦国际关系评论》第32辑，2023年，第141-169页。【CSSCI】</div>
-                <div class="pub-item">王广涛、<span class="underline">俞佳儒</span>：《日美防卫技术合作演变的逻辑》，《国际安全研究》2023年第6期，第29-50页。【CSSCI】</div>
-                <div class="pub-item">王广涛、<span class="underline">俞佳儒</span>：《民族主义、近代化竞赛与日韩历史认识问题》，《国际政治研究》2023年第3期，第31-55页。【CSSCI】</div>
-                <div class="pub-item">王广涛、<span class="underline">俞佳儒</span>：《日本人权外交的强化及其困境》，《现代国际关系》2023年第5期，第40-53页。【CSSCI】</div>
-                <div class="pub-item">王广涛、<span class="underline">俞佳儒</span>：《身份困境与对冲的扩展：中美战略竞争下日本对华政策的新动向》，《边界与海洋研究》2021年第4期，第73-90页。</div>
-            </section>
-
-            <!-- 其他成果（杂志/评论/翻译）——已删除“工作论文”和“翻译编著”部分 -->
-            <section class="main-section">
-                <h2><i class="fas fa-pen-fancy"></i> 其他成果</h2>
-                <div class="entry">
-                    <ul>
-                        <li>田中和久著、<span class="underline">俞佳儒</span>译：《日本幻想复制昭和时代的荣光，太天真》，《环球时报》2023年8月10日，第14版。</li>
-                        <li>王广涛、<span class="underline">俞佳儒</span>：《拟派现职防卫省文官驻台 日本小动作包藏祸心》，中央广播电视总台国际在线，2022年6月13日。</li>
-                        <li><span class="underline">俞佳儒</span>：《日本财阀的兴与衰》，《百科知识》2022年第1A期，第62-64页。</li>
+            <!-- 其他页：语言/荣誉/兴趣/活动/工作经历等 -->
+            <div id="other" class="page">
+                <section class="main-section">
+                    <h2><i class="fas fa-language"></i> 语言能力详请</h2>
+                    <ul style="list-style:none; padding-left:0;">
+                        <li class="other-item"><strong>汉语</strong>：普通话(二级甲等)，上海话(半母语)，崇明话(母语)</li>
+                        <li class="other-item"><strong>英语</strong>：IELTS 7.5 (CEFR C1)</li>
+                        <li class="other-item"><strong>日语</strong>：JLPT N1</li>
+                        <li class="other-item"><strong>韩语</strong>：中级</li>
                     </ul>
-                </div>
-            </section>
+                </section>
 
-            <!-- 工作经历（保留） -->
-            <section class="main-section">
-                <h2><i class="fas fa-briefcase"></i> 工作经历</h2>
-                <div class="entry">
-                    <div class="entry-header">
-                        <span class="entry-title">华东师范大学出版社 · 主题出版部实习编辑</span>
-                        <span class="entry-date">2021.03-2021.06</span>
+                <section class="main-section">
+                    <h2><i class="fas fa-award"></i> 荣誉与奖项</h2>
+                    <div class="honor-grid">
+                        <span class="honor-item">2025-2028 京都大学奖励研究员</span>
+                        <span class="honor-item">2023-2024 硕士生学业奖学金 一等奖</span>
+                        <span class="honor-item">2023-2024 国务学院科研奖励 三等奖</span>
+                        <span class="honor-item">2022-2023 硕士生国家奖学金</span>
+                        <span class="honor-item">2022-2023 三菱商事国际交流奖学金</span>
+                        <span class="honor-item">2021-2022 硕士生学业奖学金 二等奖</span>
+                        <span class="honor-item">2021 复旦大学优秀学生奖学金(毕业生) 一等奖</span>
+                        <span class="honor-item">2019-2020 复旦大学优秀学生奖学金 二等奖</span>
+                        <span class="honor-item">2018-2019 二等奖、2017-2018二等奖</span>
+                        <span class="honor-item">2024/2021 上海市优秀毕业生(硕/本)</span>
+                        <span class="honor-item">2018 复旦大学优秀学生</span>
+                        <span class="honor-item">2019“合唱之心”国际合唱节 银奖</span>
+                        <span class="honor-item">2018 上海市无伴奏合唱比赛 银奖</span>
+                        <span class="honor-item">2018/2017 复旦足球赛季军</span>
+                        <span class="honor-item">中国舞12级(北舞) · 啦啦操花球四级</span>
                     </div>
-                    <div class="entry-detail">责任编辑署名第二（高校党支部、数学/科学德育教学指导意见等）</div>
-                </div>
-                <div class="entry" style="margin-top: 10px;">
-                    <div class="entry-header">
-                        <span class="entry-title">爱德曼国际公关（上海） · 公关实习生 (PR Intern)</span>
-                        <span class="entry-date">2020.09-2020.11</span>
-                    </div>
-                    <div class="entry-detail">行业与消费者洞察、social listening、新闻稿撰写翻译等</div>
-                </div>
-            </section>
+                </section>
 
-            <!-- 没有了当前工作/活动经历/推荐人，直接结尾 -->
-            <div class="footnote">
-                <i class="far fa-calendar-alt"></i> 最后更新：2026年3月 · NCT green edition · 可用于GitHub学术主页
+                <section class="main-section">
+                    <h2><i class="fas fa-briefcase"></i> 工作经历</h2>
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">华东师范大学出版社 · 实习编辑 (主题出版部)</span>
+                            <span class="entry-date">2021.03-2021.06</span>
+                        </div>
+                        <div class="entry-detail">责任编辑署名第二（多本数学/科学德育教学指导意见等）</div>
+                    </div>
+                    <div class="entry">
+                        <div class="entry-header">
+                            <span class="entry-title">爱德曼国际公关（上海） · 公关实习生</span>
+                            <span class="entry-date">2020.09-2020.11</span>
+                        </div>
+                        <div class="entry-detail">行业洞察、social listening、新闻稿翻译等</div>
+                    </div>
+                </section>
+
+                <section class="main-section">
+                    <h2><i class="fas fa-users"></i> 学术会议与活动</h2>
+                    <ul style="list-style:none;">
+                        <li class="other-item">第4届次世代日本研究者工作坊 (日本国际交流基金) 发表「日本ODAにおける人権への配慮」(2022-2023)</li>
+                        <li class="other-item">第3届Nansen East-West Dialogue Academy, 挪威 (2019.8)</li>
+                        <li class="other-item">复旦·立命馆·庆熙大学中日韩学生和平对话会, 上海 (2019.8) 英语发表</li>
+                        <li class="other-item">第12届亚洲未来政治人论坛(AFPLA), 首尔 (2018.8) 历史教育panel</li>
+                        <li class="other-item">复旦国际关系论坛 发表 (2022.6) / 第9届中日关系上海研讨会 (2022.12)</li>
+                    </ul>
+                </section>
+
+                <section class="main-section">
+                    <h2><i class="fas fa-heart"></i> 兴趣爱好</h2>
+                    <div class="badge-container">
+                        <span class="skill-badge">K-POP (NCT, NCT 127, DOYOUNG)</span>
+                        <span class="skill-badge">足球</span>
+                        <span class="skill-badge">合唱</span>
+                        <span class="skill-badge">中国舞/啦啦操</span>
+                    </div>
+                </section>
             </div>
-        </main>
-    </div> <!-- end grid -->
-</div> <!-- end container -->
+        </div>
+    </div>
+
+    <div class="footnote">
+        <i class="far fa-calendar-alt"></i> 2026年3月 · NCT Green · 固定菜单/左侧 右侧切换
+    </div>
+</div>
+
+<script>
+    (function() {
+        // 获取所有导航项和页面
+        const navItems = document.querySelectorAll('.nav-item');
+        const pages = {
+            home: document.getElementById('home'),
+            academic: document.getElementById('academic'),
+            research: document.getElementById('research'),
+            other: document.getElementById('other')
+        };
+
+        // 初始激活首页
+        setActive('home');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                const pageId = this.getAttribute('data-page'); // home, academic, ...
+                if (!pageId) return;
+                
+                // 移除所有导航active类
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+
+                // 隐藏所有页面
+                Object.values(pages).forEach(p => p.classList.remove('active-page'));
+
+                // 显示选中页面
+                if (pages[pageId]) {
+                    pages[pageId].classList.add('active-page');
+                } else {
+                    console.warn('no page:', pageId);
+                }
+            });
+        });
+
+        function setActive(page) {
+            document.querySelector(`.nav-item[data-page="${page}"]`).classList.add('active');
+            pages[page].classList.add('active-page');
+        }
+    })();
+</script>
 </body>
 </html>
