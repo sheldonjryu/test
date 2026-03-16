@@ -398,19 +398,25 @@
             line-height: 1.4;
         }
 
-        .pub-badge:hover {
-            background-color: #4f9a4f;       /* 深绿色悬停效果 */
-            text-decoration: none;
-            color: white;
-        }
-
         /* 区分C刊与非C刊（可选） */
         .pub-badge.cssci {
             background-color: #2a7a2a;       /* 深绿色，表示C刊 */
         }
+
+        .pub-badge.cssci:hover {
+            background-color: #034003;       /* 深绿色悬停效果 */
+            text-decoration: none;
+            color: white;
+        }
         
         .pub-badge.non-cssci {
             background-color: #b0b0b0;       /* 灰色，表示普通期刊 */
+        }
+
+        .pub-badge.non-cssci:hover {
+            background-color: #e2f2dc;       /* 浅绿色悬停效果 */
+            text-decoration: none;
+            color: white;
         }
         
         /* 如果要移除点击后的颜色变化，保持颜色不变，可添加以下规则 */
